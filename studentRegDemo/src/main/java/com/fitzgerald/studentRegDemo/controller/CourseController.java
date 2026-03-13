@@ -7,6 +7,8 @@ import com.fitzgerald.studentRegDemo.model.Student;
 import com.fitzgerald.studentRegDemo.repository.CourseRepository;
 import com.fitzgerald.studentRegDemo.repository.StudentRepository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class CourseController {
 
         if(course.getRoster().size() >= course.getSize()) 
             {
-            throw new RuntimeException("Course full");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Course full");
         }
 
         course.getRoster().add(student);

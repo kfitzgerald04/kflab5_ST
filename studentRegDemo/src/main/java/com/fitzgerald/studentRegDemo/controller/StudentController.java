@@ -3,6 +3,8 @@ import com.fitzgerald.studentRegDemo.model.Student;
 import com.fitzgerald.studentRegDemo.repository.StudentRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 
 import java.util.List;
@@ -19,12 +21,12 @@ public class StudentController {
 
     // validation (business rules)
     private void validate(Student student) {
-        if(student.getGpa() < 0 || student.getGpa() > 4.0) {
-            throw new RuntimeException("GPA must be between 0 and 4.0");
+        if(student.getGpa() < 0.0 || student.getGpa() > 4.0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "GPA must be between 0 and 4.0");
         }
 
         if(student.getName() == null || student.getName().length() > 255) {
-            throw new RuntimeException("Name must be 1-255 characters");
+            throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Name must be 1-255 characters");
         }
     }
 
