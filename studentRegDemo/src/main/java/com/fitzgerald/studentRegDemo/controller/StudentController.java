@@ -17,6 +17,17 @@ public class StudentController {
         this.repository = repository;
     }
 
+    // validation (business rules)
+    private void validate(Student student) {
+        if(student.getGpa() < 0 || student.getGpa() > 4.0) {
+            throw new RuntimeException("GPA must be between 0 and 4.0");
+        }
+
+        if(student.getName() == null || student.getName().length() > 255) {
+            throw new RuntimeException("Name must be 1-255 characters");
+        }
+    }
+
     // GET all students
     @GetMapping
     public List<Student> getAll() {
@@ -28,7 +39,31 @@ public class StudentController {
     public Student create(@RequestBody Student student) {
         // Lab Logic: You could add validation here to throw an error
         // if GPA > 4.0, giving students a negative test case.
+
+        // enforcing business rules
+        validate(student);
+
         return repository.save(student);
+    }
+
+    // UPDATE a student
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student updatedStudent) {
+        
+        // enforcing business rules
+        validate(updatedStudent);
+
+        return repository.findById(id).map(student -> {
+            student.setName((updatedStudent.getName()));
+            student.setMajor((updatedStudent.getMajor()));
+            student.setGpa(updatedStudent.getGpa());
+            if(student.getGpa() < 0 || student.getGpa() > 4.0) {
+            throw new RuntimeException("GPA must be between 0 and 4.0");
+        }
+            Student saved = repository.save(student);
+            return ResponseEntity.ok(saved);
+        })
+        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // DELETE a student

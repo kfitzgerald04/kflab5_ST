@@ -1,4 +1,4 @@
-// modeled off of Student
+// modeled off of Student not from repo
 
 package com.fitzgerald.studentRegDemo.model;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-// modeled off of StudentRepository
+// modeled off of StudentRepository not from repo
 
 package com.fitzgerald.studentRegDemo.repository;
 

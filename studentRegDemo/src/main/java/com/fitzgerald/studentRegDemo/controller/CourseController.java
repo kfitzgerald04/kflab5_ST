@@ -1,4 +1,4 @@
-// modeled off of StudentController
+// modeled off of StudentController not from repo
 
 package com.fitzgerald.studentRegDemo.controller;
 
@@ -37,6 +37,20 @@ public class CourseController {
         return courseRepo.save(course);
     }
 
+    // PUT updating a course
+    @PutMapping("/{courseId}")
+    public Course updateCourse(@PathVariable Long courseId, @RequestBody Course updatedCourse) {
+
+    Course course = courseRepo.findById(courseId).orElseThrow();
+
+    course.setName(updatedCourse.getName());
+    course.setSize(updatedCourse.getSize());
+    course.setRoom(updatedCourse.getRoom());
+    course.setInstructor(updatedCourse.getInstructor());
+
+    return courseRepo.save(course);
+    }
+
     // ADD a student to the COURSE if there is space
     @PostMapping("/{courseId}/students/{studentId}")
     public Course addStudent(@PathVariable Long courseId, @PathVariable Long studentId) 
@@ -54,7 +68,7 @@ public class CourseController {
         return courseRepo.save(course);
     }
 
-    // DELETE a course
+    // DELETE a student from a course course
     @DeleteMapping("/{courseId}/students/{studentId}")
     public Course removeStudent(@PathVariable Long courseId, @PathVariable Long studentId) 
     {
@@ -64,5 +78,11 @@ public class CourseController {
         course.getRoster().removeIf(s -> s.getId().equals(studentId));
 
         return courseRepo.save(course);
+    }
+
+    // DELETE a course
+    @DeleteMapping("/{courseId}")
+    public void deleteCourse(@PathVariable Long courseId) {
+        courseRepo.deleteById(courseId);
     }
 }
