@@ -3,7 +3,7 @@
 NOTES ON HOW TO FIND EVERYTHING (logistics)
 - studentRegDemo contains all of my source files!
 - The design document can be found in my resources folder in MAIN
-- The POSTMAN collection test suite can be found in my resources folder in TEST
+- The POSTMAN collection test suite can be found in my resources folder in TEST (you should be able to copy my collection into postman and select tests to run)
 
 RUNNING INSTRUCTIONS (if needed)
 - cd STUDENTREGDEMO
