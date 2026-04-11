@@ -9,6 +9,10 @@ RUNNING INSTRUCTIONS (if needed)
 - cd STUDENTREGDEMO
 - mvn springboot:run
 - This should allow the collections to be ran in POSTMAN
+FOR UI RUN
+- mvn spring-boot:run in one terminal
+- cd fronted --> npm run dev in another terminal
+- mvn verify in another terminal to run UI tests
 
 ADDTIONAL COMMENTS ON THE STRUCTURE OF MY TESTS
 - As there were only 2 main EPs, I only have 1 TEST CASE for it, that sort of groups those together. I didn't test error values in EP testing, they are caught in BVA!
