@@ -9,6 +9,7 @@ RUNNING INSTRUCTIONS (if needed)
 - cd STUDENTREGDEMO
 - mvn springboot:run
 - This should allow the collections to be ran in POSTMAN
+
 FOR UI RUN
 - mvn spring-boot:run in one terminal
 - cd fronted --> npm run dev in another terminal
