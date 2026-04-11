@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/students")
 public class StudentController {
 
