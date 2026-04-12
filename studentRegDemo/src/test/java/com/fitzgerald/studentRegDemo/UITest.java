@@ -156,8 +156,12 @@ public class UITest {
 
         createStudent("Lucas Sharp", "Math", "0.0");
 
+        //Thread.sleep(1000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(d -> getStudentRowCount() > before);
+
         int after = getStudentRowCount();
-        assertTrue(after > before); 
+        assertEquals(before + 1, after); 
 
         // check that the student was added
         assertTrue(driver.getPageSource().contains("Lucas Sharp"));
@@ -174,8 +178,11 @@ public class UITest {
 
         createStudent("Jim Lee", "Physics", "4.0");
 
+         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(d -> getStudentRowCount() > before);
+
         int after = getStudentRowCount();
-        assertTrue(after > before);
+        assertEquals(before + 1,  after);
 
         // check that the student was added
         assertTrue(driver.getPageSource().contains("Jim Lee"));
@@ -275,7 +282,7 @@ public class UITest {
 
         int after = getStudentRowCount();
 
-        // check that a row was removed
+        // check that a row was added
         assertEquals(before +1, after);
 
         // delete the last student in the table 
@@ -287,7 +294,7 @@ public class UITest {
 
         // check that a row was removed
         int afterDelete = getStudentRowCount();
-        assertEquals(before - 1, afterDelete);
+        assertEquals(before, afterDelete);
     }
 
     // ======================
@@ -449,19 +456,25 @@ public class UITest {
     void deleteCourse() throws InterruptedException {
         goToCourses();
 
-        createCourse("Delete Course", "Temp", "1", "Room X");
-
         int before = getCourseRowCount();
 
+        createCourse("Delete Course", "Temp", "1", "404");
+
+        Thread.sleep(1000);
+
+        int afterCourse = getCourseRowCount();
+        assertEquals(before + 1, afterCourse);
+
+        // delete row
         List<WebElement> rows = driver.findElements(By.cssSelector("#course-list-table tbody tr"));
         WebElement lastRow = rows.get(rows.size() - 1);
         lastRow.findElement(By.id("delete-course-button")).click();
 
         Thread.sleep(1000);
 
-        int after = getCourseRowCount();
+        int delete = getCourseRowCount();
 
         // check that the course was removed correctly
-        assertEquals(before - 1, after);
+        assertEquals(before, delete);
     }
 }
